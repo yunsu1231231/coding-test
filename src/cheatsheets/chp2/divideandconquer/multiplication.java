@@ -1,6 +1,4 @@
-package cheatsheets.chp2;
-
-import java.util.*;
+package cheatsheets.chp2.divideandconquer;
 
 public class multiplication {
     public static void main(String[] args) {
