@@ -39,6 +39,7 @@ public class boj_1260 {
         System.out.println(sb2);
     }
 
+    // 현재 노드로부터 방문할 수 있는 모든 노드는 다 방문하고 돌아온다
     private static void dfs(int cur, Set<Integer>visited){
         visited.add(cur);
         sb.append(cur).append(" ");
@@ -54,7 +55,6 @@ public class boj_1260 {
                 dfs(next,visited);
             }
         }
-
     }
 
     private static void bfs(int start){
@@ -66,9 +66,9 @@ public class boj_1260 {
         queue.add(start);
 
         while(!queue.isEmpty()){
-            int cur = queue.remove();
-            for(int next : graph.get(cur)){
-                if(!visited.contains(next)){
+            int cur = queue.remove(); // 1. 큐에서 꺼내고
+            for(int next : graph.get(cur)){ // 2. 인접 노드를 전부 다 탐색
+                if(!visited.contains(next)){ // 3. 방문하지 않았으면 -> 전부 다 한 번에 큐에 추가 + 한 번에 방문 처리
                     visited.add(next);
                     sb2.append(next).append(" ");
                     queue.add(next);
@@ -77,3 +77,6 @@ public class boj_1260 {
         }
     }
 }
+
+// 1. dfs는 방문 처리가 노드 하나씩 이뤄지고
+// 2. bfs는 한 노드의 모든 인접 노드를 한 번에 방문처리
