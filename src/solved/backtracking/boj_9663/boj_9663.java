@@ -1,4 +1,4 @@
-package wrong.backtracking.boj_9663;
+package solved.backtracking.boj_9663;
 
 import java.util.*;
 
@@ -12,42 +12,39 @@ public class boj_9663 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         N = sc.nextInt();
-        col = new boolean[N]; // 열
-        right = new boolean[2 * N];// 오른쪽 아래 대각선
-        left = new boolean[2 * N]; // 왼쪽 아래 대각선
-
+        col = new boolean[N]; // 1 based
+        right = new boolean[N * 2];
+        left = new boolean[N * 2];
         dfs(0);
-
         System.out.println(count);
     }
 
-    // depth = 행
+    // 깊이 당 하나씩 고르고 -> 끝 도달: + 1
     private static void dfs(int depth){
         if(depth == N){
             count++;
             return;
         }
-
-        // 0 based, N = 열
+        // based 대원칙
         for(int i = 0; i < N; i++){
-            // 1. 놓을 수 있는지 체크 조건
+            // 1. 중복 처리
             if(col[i]){
                 continue;
             }
             if(left[depth + i]){
                 continue;
             }
-            // 1. 가능한 범위 2. shift
-            if(right[depth - i + (N - 1)]){
+            if(right[-(depth - i) + N ]){
                 continue;
             }
+            // 2. 방문 처리 -> 다음 dfs
             col[i] = true;
-            right[depth - i + (N - 1)] = true;
             left[depth + i] = true;
+            right[-(depth - i) + N ] = true;
             dfs(depth + 1);
             col[i] = false;
-            right[depth - i + (N - 1)] = false;
             left[depth + i] = false;
+            right[-(depth - i) + N ] = false;
         }
     }
 }
@@ -68,6 +65,8 @@ public class boj_9663 {
 
 // 0      1          2        3    4
 // 20 / 10 01 / 00 11 22 / 01 12 / 02  오른쪽 아래 대각선
+
+// -(depth - i) + N // 2 ~ -2
 
 // 00 / 10 01/ 20 11 02 // 12 21 // 22   // 왼쪽 아래 대각선
 

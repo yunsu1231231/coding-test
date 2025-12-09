@@ -1,4 +1,4 @@
-package wrong.backtracking.boj_15649;
+package solved.backtracking.boj_15649;
 
 import java.util.*;
 
