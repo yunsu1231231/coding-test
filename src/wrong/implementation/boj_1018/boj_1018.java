@@ -1,89 +1,99 @@
 package wrong.implementation.boj_1018;
 
-//import java.util.*;
+import java.util.*;
+
+// 32 -> 31 나오는데,, 절대적 좌표로 한 번 더 풀고 + 상대적 좌표 어디가 잘못되었는지 확인
+public class boj_1018 {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        int M = sc.nextInt();
+        char[][] arr = new char[N][M];
+        for(int i = 0; i < N; i++){
+            char[] a = sc.next().toCharArray();
+            arr[i] = a;
+        }
+
+        // think
+
+        // i,j 시작점 -> k,p 전체 좌표 // 시작 i부터 8만큼
+        // 그래서 내부에서 판단 => i만큼 엮으로 이동
+        int result = 10000;
+        for(int i = 0; i <= N - 8; i++){
+            for(int j = 0; j <= M - 8; j++){
+                int count = 0;
+                int count2 = 0;
+                for(int k = i; k < i + 8; k++){
+                    for(int p = j; p < j + 8; p++){
+                        if(arr[i][j] == 'B'){
+                            if((k - i + p - j) % 2 == 0){
+                                if(arr[k][p] == 'W'){
+                                    count++;
+                                }
+                            } else {
+                                if(arr[k][p] == 'B'){
+                                    count++;
+                                }
+                            }
+                        } else {
+                            if((k - i + p - j) % 2 == 0){
+                                if(arr[k][p] == 'B'){
+                                    count++;
+                                }
+                            } else {
+                                if(arr[k][p] == 'W'){
+                                    count++;
+                                }
+                            }
+                        }
+
+                        if(arr[i][j] == 'W'){
+                            if((k - i + p - j) % 2 == 0){
+                                if(arr[k][p] == 'B'){
+                                    count2++;
+                                }
+                            } else {
+                                if(arr[k][p] == 'W'){
+                                    count2++;
+                                }
+                            }
+                        } else {
+                            if((k- i + p - j) % 2 == 0){
+                                if(arr[k][p] == 'W'){
+                                    count2++;
+                                }
+                            } else {
+                                if(arr[k][p] == 'B'){
+                                    count2++;
+                                }
+                            }
+                        }
+                    }
+                }
+                result = Math.min(result, Math.min(count,count2)); // 기존 result와 비교하지 않음, 마지막 count, count2 두개만 비교함
+            }
+        }
+        System.out.println(result);
+    }
+}
+
+// 여기서 사고
+
+// 로직
+// 다 탐색 가능
+// 8*8
+// 1. 시작 기준
+// 0 1 2  // 10 - 8
+// 0 1 2 3 4 5  // 13 - 8 까지,, 포함
+// 2. 시작 W 일 때
+// 홀, 짝 검사 -> 교체
+// 3. 시작 B 일 때
 //
-//public class boj_1018 {
-//    public static void main(String[] args) {
-//        Scanner sc = new Scanner(System.in);
-//        int N = sc.nextInt(); // 행
-//        int M = sc.nextInt(); // 열
-//        // 배열 vs 리스트, 배열일 때 String vs char 대원칙
-//        char[][] arr = new char[N][M]; // 0 based
-//        for(int i = 0; i < N; i++){
-//            String a = sc.next();
-//            char[] cur = a.toCharArray();
-//            arr[i] = cur;
-//        }
-//        // i = 행
-//        int result = Integer.MAX_VALUE;
-//        for(int i = 0; i <= N - 8; i++){
-//            for(int j = 0; j <= M - 8; j++){
-//                // i, j 시작 기점
-////                int count = 0;
-//                char[][] cur = new char[8][8];
-//                for(int k = i; k <= i + 7; k++){
-//                    for(int p = j; p <= j + 7; p++){
-//                        // k,p는 이제 각 변수
-//                        cur[k-i][p-j] = arr[k][p];
-//                    }
-//                }
-//                int countB = 0;
-//                int countW = 0;
-//
-//                if(cur[0][0] == 'B'){
-//                    // l = 행, ll = 열
-//                    for(int l = 0; l <= 7; l++){
-//                        for(int ll = 0; ll <=7; ll++){
-//                            if((l + ll) % 2 ==0){
-//                                if(cur[l][ll] != 'B'){
-//                                    countB++;
-//                                }
-//                                if(cur[l][ll] != 'W'){
-//                                    countW++;
-//                                }
-//                            } else {
-//                                if(cur[l][ll] != 'W'){
-//                                    countB++;
-//                                }
-//                                if(cur[l][ll] != 'B'){
-//                                    countW++;
-//                                }
-//
-//                            }
-//                        }
-//                    }
-//                }
-//                result = Math.min(result, Math.min(countB, countW);
-//            }
-//        }
-//        System.out.println(result);
-//    }
-//}
 
+// 0 0 / 0 2 / 0 4 0 6 0 8
+// 1 1 / 1 3 / 1 5 1 7
+// 2 0 / 2 2 / 2 4 2 6
 
-
-// 로직에 대한 사고
-
-// 1. 체스판을 고르고
-// 2. 다시 칠해야 되는 최소 개수
-// 다 계산 가능
-
-// 50 50
-
-// 1 ~ 42
-// 1 ~ 42
-
-// 1600 * 2 * 8 * 8 = 140 * 1600 = 1500 150 = 225000
-
-// 바둑판 판단 기준
-// 1. 0번째 B일 떄
-
-// 2. 0번쨰 W일 떄
-
-// 구분선
-// 1. 문제 조건 max, min -> 오류가 났을 때 점검 태도도 일관되게 정리
-// 2.
-// (x + y) % 2 == 0 → 시작색
-//
-//(x + y) % 2 == 1 → 반대색
-// 잘못된 규칙을 기준으로 조건문을 만든 것
+// 0 1 / 0 3 / 0 5
+// 1 0 / 1 2 / 1 4
