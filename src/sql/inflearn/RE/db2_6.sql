@@ -63,7 +63,6 @@ from products p
 -- sub
 
 -- 문제 1
-
 select
     name,
     case job_code
@@ -83,6 +82,25 @@ select
         when price < 50000 then '저가'
     end as price_level
 from products;
+
+-- 문제 3 -- 문제 확인은 이후 https://chatgpt.com/c/693a85e8-7080-8322-b38f-2a0fcdb79746
+
+select
+    case category
+        when electronic then 'ELEC'
+        when fashion then 'FASH'
+        when book then 'BOOK'
+    else "OTHERS"
+    end as category_group
+from products
+order by
+    case when price >= 100000 then desc
+    else asc;
+
+
+-- 하나를 읽어도 제대로 + 사고 연습 / 이게 이제 선행
+
+
 
 
 
