@@ -7,6 +7,7 @@ import java.util.*;
 
 // 결과 디버깅 내일 한 번 더 해복;
 
+
 public class Main {
     // 하나르 관리하는게 편하네
     static List<Deque<Integer>> arr = new ArrayList<>(); // 전체 deque 관리 배열
