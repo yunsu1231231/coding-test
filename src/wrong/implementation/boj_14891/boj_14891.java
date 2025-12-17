@@ -6,70 +6,79 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class boj_14891 {
-    private static int[] a; // 1
-    private static int[] bb; // 2
-    private static int[] ccc; // 3
-    private static int[] dddd; // 4
+    static int[][] arr = new int[4][8];
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader b = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(b.readLine());
-        a = new int[8];
-        for(int i = 0; i < 8; i++){ // 가변일 때 !while 형태 문법 한 번 확인
-            a[i] = Integer.parseInt(st.nextToken());
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        for(int i = 0; i < 4; i++){
+            String s = br.readLine();
+            for(int ii = 0; ii < 8; ii++){
+                arr[i][ii] = s.charAt(ii) - '0';
+            }
         }
-        st = new StringTokenizer(b.readLine());
-        bb = new int[8];
-        for(int i = 0; i < 8; i++){
-            bb[i] = Integer.parseInt(st.nextToken());
-        }
-        st = new StringTokenizer(b.readLine());
-        ccc= new int[8];
-        for(int i = 0; i < 8; i++){
-            ccc[i] = Integer.parseInt(st.nextToken());
-        }
-        st = new StringTokenizer(b.readLine());
-        dddd= new int[8];
-        for(int i = 0; i < 8; i++){
-            dddd[i] = Integer.parseInt(st.nextToken());
-        }
-        Scanner sc = new Scanner(System.in);
-        int K = sc.nextInt();
+        int K = Integer.parseInt(br.readLine());
         for(int i = 0; i < K; i++){
-            List<List<Integer>> arr = new ArrayList<>(); // 1 based
-            arr.add(new ArrayList<>()); // 빈 배열
-            arr.add(new ArrayList<>(Arrays.asList(0,a[2])));
-            arr.add(new ArrayList<>(Arrays.asList(bb[6],bb[2])));
-            arr.add(new ArrayList<>(Arrays.asList(ccc[6],ccc[2])));
-            arr.add(new ArrayList<>(Arrays.asList(dddd[2],0)));
-
-            int number = sc.nextInt();
-            int go = sc.nextInt();
-            logicLeft(number,go,arr);
-            logicRight(number,go,arr);
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int num = Integer.parseInt(st.nextToken()) - 1; // 2
+            int dir = Integer.parseInt(st.nextToken()); // -1
+            int[] direction = new int[4];
+            direction[num] = dir; // 0 1 -1 1
+            // 왼쪽 전파
+            for(int j = num; j > 0; j--){
+                if(arr[j][6] != arr[j - 1][2]){
+                    direction[j - 1] = -direction[j];
+                } else {
+                    break;
+                }
+            }
+            // 오른쪽
+            for(int j = num; j < 3; j++){
+                if(arr[j][2] != arr[j + 1][6]){
+                    direction[j + 1] = -direction[j];
+                } else {
+                    break;
+                }
+            }
+            // 실제 회전
+            for(int j = 0; j < 4; j++){
+                if(direction[j] == 1){
+                    rotateRight(j);
+                } else if (direction[j] == -1){
+                    rotateLeft(j);
+                }
+            }
         }
+        // 총 합
+        System.out.println(arr[0][0] + arr[1][0] * 2 + arr[2][0] * 4 + arr[3][0] * 8);
+
+    }
+    // 채워넣는 순서도 -> 끝에서부터
+    static void rotateRight(int cur){
+        int[] now = arr[cur];
+        int temp = now[7];
+//        for(int i = 1; i <= 7; i++){
+//            now[i] = now[i-1];
+//        }
+        for(int i = 7; i >= 1; i--){
+            now[i] = now[i-1];
+        }
+        now[0] = temp;
+
+        arr[cur] = now;
     }
 
-    // 현재 탐색 톱니바퀴에서 go 방향 회전시 전체 배열을 변경하는 함수, 한 번의 이동만
-    private static void logicLeft(int start, int go,List<List<Integer>> arr){
-        if(start -1 < 0){
-            return;
+    static void rotateLeft(int cur){
+        int[] now = arr[cur];
+        int temp = now[0];
+//        for(int i = 7; i >= 1; i--){
+//            now[i - 1] = now[i];
+//        }
+        for(int i = 0; i < 7; i++){
+            now[i] = now[i + 1];
         }
-        int cur = arr.get(start).get(0);
-        int next = arr.get(start - 1).get(1);
-        if(cur != next){
-            return;
-        }
-        // 1. 다음것만 바꾸고 // 근데 배열이여서 너무 변경이 어려운데...
-        // 2. 다음 재귀에 맡기기
+        now[7] = temp;
 
-    }
-
-    // 현재 탐색 톱니바퀴에서 go 방향 회전시 전체 배열을 변경하는 함수, 한 번의 이동만
-    private static void logicRight(int start, int go,List<List<Integer>> arr){
-        if(start + 1 > 4){
-            return;
-        }
+        arr[cur] = now;
     }
 }
 
