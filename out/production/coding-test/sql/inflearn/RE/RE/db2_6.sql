@@ -1,3 +1,16 @@
+-- 문제 4 / RE
+
+select
+    u.name as user_name,
+    count(o.order_id) as total_orders,
+    SUM(case category when '전자기기' then 1 else 0 end) as electronics_orders,
+    SUM(case category when '도서 주문' then 1 else 0 end) as book_orders
+from users u
+left join orders o on u.user_id = o.user_id
+left join products p on p.product_id = o.product_id
+group by u.name;
+
+
 -- 문제 1
 
 select
