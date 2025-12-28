@@ -32,3 +32,8 @@ Alpha.equals()는 내가 정의
 
 => String 사용 
 ```
+
+### 2.
+```declarative
+        Set<String> s = new HashSet<>(); // String 바로 사용!
+```
