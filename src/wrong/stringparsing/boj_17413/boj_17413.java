@@ -26,7 +26,9 @@ public class boj_17413 {
             if(Objects.equals(now, "")){
                 continue;
             }
-            String[] nowArr = now.split(">");
+            String[] nowArr = now.split(">"); // 1. <로 나눈 조각은
+            // 2. 무조건 <> tag로 시작한다고 사고
+            // 단어 <tag> 단어 고려 x
             sb.append("<");
             sb.append(nowArr[0]);
             sb.append(">");
@@ -88,4 +90,11 @@ public class boj_17413 {
 // max>9223372036854775807
 
 
-//  1.
+// 문자열을 읽으면서 -> 문자열에 따라 규칙이 바뀌는 문제: 분기문이 바뀐다
+// 따라서 문자열 단위가 아닌 문자 단위로 처리해야 된다.
+
+// 판단 대원칙:
+// 해당 문자를 해석할 때 이전 문자를 봐야하는가 -> 아니면 split, 맞으면 char 단위
+
+// 조건 분기가 고정된 구분자라면 문자열 단위가 편리하고,
+// 분기가 상태에 따라 달라지면 문자 단위 처리가 필수다.

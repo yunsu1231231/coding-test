@@ -17,13 +17,3 @@ order by u.name;
 
 -- group by에 select 컬럼을 다 써야 한다
 -- 당연: group by가 기준인데 group by로 묶은것에서 임의로 하나의 속성을 꺼낼 수 없으므로
-
--- 4번 o
-select
-    u.name as user_name,
-    p.name as product_name
-from users u
-left join on u.user_id = o.user_id
-left join on o.product_id = p.product_id
-order by user_name, product_name;
-
