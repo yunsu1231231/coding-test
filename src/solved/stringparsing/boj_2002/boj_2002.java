@@ -4,61 +4,98 @@ import java.util.*;
 import java.io.*;
 
 public class boj_2002 {
-    static String[] arr;
-    static Deque<String> queue;
-    static int count;
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int a = Integer.parseInt(br.readLine());
+        List<String> inArr = new ArrayList<>();
+        List<String> outArr = new ArrayList<>();
+        for(int i = 0; i < a; i++){
+            inArr.add(br.readLine());
+        }
+        for(int i = 0; i < a; i++){
+            outArr.add(br.readLine());
+        }
 
-    public static void main(String[] args) throws Exception{
-        BufferedReader br = new BufferedReader(new InputStreamReader((System.in)));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int a = Integer.parseInt(st.nextToken());
-        arr = new String[a];
-        for(int i = 0; i < a; i++){
-            arr[i] = br.readLine();
+        int count = 0;
+        for(String now : outArr){
+            if(!now.equals(inArr.get(0))){
+                inArr.remove(now);
+                count++;
+            } else {
+                inArr.remove(now);
+            }
         }
-        queue = new ArrayDeque<>();
-        for(int i = 0; i < a; i++){
-            queue.add(br.readLine());
-        }
-        count = 0;
-        dfs();
-        if(count == 1){
-            System.out.println(1);
-        } else {
-            System.out.println(count - 1); // 끝은 판단 불가능
-        }
-//        while(!queue.isEmpty()){
-//            dfs();
-//            for(String now : arr){
+        System.out.println(count);
+    }
+}
+
+// 사고 + A // A
+// 메타인지
+
+
+
+// 로직
+// 1. 출구를 기준으로 순회
+// 2. 없으면 -> 입구에서 제거
+
+
+
+
+//    static String[] arr;
+//    static Deque<String> queue;
+//    static int count;
+//
+//    public static void main(String[] args) throws Exception{
+//        BufferedReader br = new BufferedReader(new InputStreamReader((System.in)));
+//        StringTokenizer st = new StringTokenizer(br.readLine());
+//        int a = Integer.parseInt(st.nextToken());
+//        arr = new String[a];
+//        for(int i = 0; i < a; i++){
+//            arr[i] = br.readLine();
+//        }
+//        queue = new ArrayDeque<>();
+//        for(int i = 0; i < a; i++){
+//            queue.add(br.readLine());
+//        }
+//        count = 0;
+//        dfs();
+//        if(count == 1){
+//            System.out.println(1);
+//        } else {
+//            System.out.println(count - 1); // 끝은 판단 불가능
+//        }
+////        while(!queue.isEmpty()){
+////            dfs();
+////            for(String now : arr){
+////                String aaa = queue.remove();
+////                if(aaa.equals(now)){
+////                    continue;
+////                } else {
+////                    count++;
+////                    // 다시 코드블록 처음.. for 배열을 넘어가지 않은 상태에서 -> 이게 어떻게 되지..?
+////                }
+////            }
+////        }
+//    }
+//    private static void dfs(){
+//        if(queue.isEmpty()){
+//            return;
+//        }
+//
+//        for(String now : arr){
+//            if(!queue.isEmpty()){
 //                String aaa = queue.remove();
 //                if(aaa.equals(now)){
 //                    continue;
 //                } else {
 //                    count++;
+//                    dfs();
 //                    // 다시 코드블록 처음.. for 배열을 넘어가지 않은 상태에서 -> 이게 어떻게 되지..?
 //                }
 //            }
 //        }
-    }
-    private static void dfs(){
-        if(queue.isEmpty()){
-            return;
-        }
+//    }
 
-        for(String now : arr){
-            if(!queue.isEmpty()){
-                String aaa = queue.remove();
-                if(aaa.equals(now)){
-                    continue;
-                } else {
-                    count++;
-                    dfs();
-                    // 다시 코드블록 처음.. for 배열을 넘어가지 않은 상태에서 -> 이게 어떻게 되지..?
-                }
-            }
-        }
-    }
-}
 
 // 재귀..?  // A
 

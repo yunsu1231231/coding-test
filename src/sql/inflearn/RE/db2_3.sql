@@ -39,3 +39,19 @@ join employees y on e.employee_id = y.manger_id; -- 상사의 employee_id, 직�
 where e.name = '최과장';
 
 -- self join: 하나의 테이블을 역할만 다르게 두개처럼 보고, 공통된 키로 행들을 이어 붙여 하나의 행으로 만드는 것!
+
+--  2번 x
+-- 행 한개라도 pk + CONCAT 함수 사용법
+CREATE DATABASE materials{
+    material VARCHAR(100) PRIMARY KEY
+}
+
+select
+    CONCAT('기본티셔츠-',c.color, '-', s.size, '-', m.material) as product_full_name,
+    s.size as size,
+    c.color as color,
+    m.material as material,
+from sizes s
+cross join colors c
+cross join materials m
+order by s.size, c.color, m.material;

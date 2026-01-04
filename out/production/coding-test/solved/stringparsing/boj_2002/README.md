@@ -102,30 +102,5 @@ while(!queue.isEmpty() && idx < arr.length){
 같은 now 유지 -> 같은 스코프  
 = 결국 이게 while: 조건이 참인 동안 계속 반복 
 
-따라서 맞출 때까지 = 조건부 반복 = while 정의가 적합 
-각 항목에 대해 조건 만족까지 반복
-
-
-
-### 4.
-순회 중인 컬렉션을 구조적으로 변경 (remove) 하면서 인덱스로 다시 접근하면 에러가 생긴다.  
-해결책: 구조 변경 + 인덱스 접근은 분리하기 or  
-상태 검증 후 수행
-
-```declarative
-        for(String now : outArr){
-            inArr.remove(now);
-            if(!now.equals(inArr.get(0))){
-                count++;
-            }
-        }
-
-        for (String now : outArr) {
-            inArr.remove(now);
-
-        if (!inArr.isEmpty() && !now.equals(inArr.get(0))) {
-        count++;
-            }
-        }
-
-```
+따라서 맞출 때까지 = 조건부 반복 = while 정의가 적합
+1. 각 항목에 대해 조건 만족까지 반복
